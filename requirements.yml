@@ -1,7 +1,7 @@
 ---
 
 - src: https://github.com/superlumic/ansible-role-homebrew.git
-  name: roderik.superlumic-homebrew
+  name: slac.superlumic-homebrew
 
 - src: https://github.com/superlumic/ansible-role-osx-defaults.git
   name: roderik.superlumic-osx-defaults
@@ -9,7 +9,7 @@
 - src: https://github.com/superlumic/ansible-role-computername.git
   name: roderik.superlumic-computername
 
-- src: https://github.com/superlumic/ansible-role-cli.git
+- src: https://github.com/slac-ocio/ansible-role-cli.git
   name: roderik.superlumic-cli
 
 - src: https://github.com/superlumic/ansible-role-mysql.git

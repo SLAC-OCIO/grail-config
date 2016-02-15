@@ -21,7 +21,3 @@ dependencies:
   - slac.superlumic-node
   - slac.superlumic-vim
   - profile-all
-
-
-#todo on monday
-GET RID OF CLI stuffs

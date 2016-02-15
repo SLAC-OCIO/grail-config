@@ -49,7 +49,7 @@
     - profile-developer
 
   vars:
-    - computername: frontend
+    - computername: resetme
     - git_user_name: slac-software
     - git_user_email: cd-devops@slac.stanford.edu
     - sublime_packages:

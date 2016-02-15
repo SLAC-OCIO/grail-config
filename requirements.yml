@@ -3,9 +3,9 @@
 - src: https://github.com/slac-ocio/ansible-role-homebrew.git
   name: slac.superlumic-homebrew
 
-- src: https://github.com/slac-ocio/ansible-role-clk.git
+- src: https://github.com/slac-ocio/ansible-role-cli.git
   name: slac.superlumic-cli
-  
+
 - src: https://github.com/slac-ocio/ansible-role-osx-defaults.git
   name: slac.superlumic-osx-defaults
 

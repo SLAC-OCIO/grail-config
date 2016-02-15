@@ -17,7 +17,6 @@ dependencies:
   - slac.superlumic-mysql
   - slac.superlumic-php
   - slac.superlumic-sublimetext
-  - slac.superlumic-skylab
   - slac.superlumic-node
   - slac.superlumic-vim
   - profile-all

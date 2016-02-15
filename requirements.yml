@@ -1,34 +1,34 @@
 ---
 
-- src: https://github.com/superlumic/ansible-role-homebrew.git
+- src: https://github.com/slac-ocio/ansible-role-homebrew.git
   name: slac.superlumic-homebrew
 
-- src: https://github.com/superlumic/ansible-role-osx-defaults.git
-  name: roderik.superlumic-osx-defaults
+- src: https://github.com/slac-ocio/ansible-role-osx-defaults.git
+  name: slac.superlumic-osx-defaults
 
-- src: https://github.com/superlumic/ansible-role-computername.git
-  name: roderik.superlumic-computername
+- src: https://github.com/slac-ocio/ansible-role-computername.git
+  name: slac.superlumic-computername
 
-- src: https://github.com/superlumic/ansible-role-mysql.git
-  name: roderik.superlumic-mysql
+- src: https://github.com/slac-ocio/ansible-role-mysql.git
+  name: slac.superlumic-mysql
 
-- src: https://github.com/superlumic/ansible-role-php.git
-  name: roderik.superlumic-php
+- src: https://github.com/slac-ocio/ansible-role-php.git
+  name: slac.superlumic-php
 
-- src: https://github.com/superlumic/ansible-role-sublimetext.git
-  name: roderik.superlumic-sublimetext
+- src: https://github.com/slac-ocio/ansible-role-sublimetext.git
+  name: slac.superlumic-sublimetext
 
-- src: https://github.com/superlumic/ansible-role-node.git
-  name: roderik.superlumic-node
+- src: https://github.com/slac-ocio/ansible-role-node.git
+  name: slac.superlumic-node
 
-- src: https://github.com/superlumic/ansible-role-postgresql.git
-  name: roderik.superlumic-postgresql
+- src: https://github.com/slac-ocio/ansible-role-postgresql.git
+  name: slac.superlumic-postgresql
 
-- src: https://github.com/superlumic/ansible-role-vim.git
-  name: roderik.superlumic-vim
+- src: https://github.com/slac-ocio/ansible-role-vim.git
+  name: slac.superlumic-vim
 
-- src: https://github.com/superlumic/ansible-role-modjk.git
-  name: roderik.superlumic-modjk
+- src: https://github.com/slac-ocio/ansible-role-modjk.git
+  name: slac.superlumic-modjk
 
-- src: https://github.com/superlumic/ansible-role-skylab.git
-  name: roderik.superlumic-skylab
+- src: https://github.com/slac-ocio/ansible-role-skylab.git
+  name: slac.superlumic-skylab

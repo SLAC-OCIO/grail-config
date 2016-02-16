@@ -91,7 +91,7 @@
     - git_user_name: "{{ ansible_user_id }}"
     - git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
     - mysql_root_password: "y0u$houldReallyChangeMe"
-    - drush_install_path: /usr/local/share
+    - drush_install_path: /usr/local/share/drush
     - drush_version: "master"
     - drush_keep_updated: no
     - drush_force_update: no

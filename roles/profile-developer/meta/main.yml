@@ -20,4 +20,5 @@ dependencies:
   - slac.superlumic-node
   - slac.superlumic-vim
   - slac.drush
+  - slac.composer
   - profile-all

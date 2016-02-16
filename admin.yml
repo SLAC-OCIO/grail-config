@@ -4,7 +4,6 @@
   connection: local
 
   tasks:
-
     - name: create ssh directory
       become: yes
       file:
@@ -35,12 +34,21 @@
         - slac_features.conf
         - slac_gtw.conf
         - slac_www.conf
-    - git: repo=ssh://git@github.com/mylogin/hello.git 
-        dest=/home/mylogin/hello
-          
-    - name: restart apache2
-      service: apache2
-      state: restart
+      notify: restart apache
+
+    - name: get slac websites
+      git: 
+      repo: "{{item}}" 
+      dest: "/var/sites/{{item}}"
+      update: yes
+      with_items: "{{slac_sites}}"
+
+    - name: retart httpd (Darwin)
+      become: yes
+      command: "launchctl load -w /System/Library/LaunchDaemons/{{item}}.plist"
+      only_if: "'$ansible_system' == 'Darwin'"
+      with_items:
+        - org.apache.httpd
 
     - name: add to sudoers without password
       become: yes
@@ -58,7 +66,7 @@
         path: "{{ ansible_user_id }}/bin"
         state: directory
         owner: "{{ ansible_user_id }}"
-        group: "{{ ansible_user_id }}"
+        group: "staff"
         mode: 0755
 
     - name: copy vhost script
@@ -66,7 +74,7 @@
         src: "~/.slac-mac/virtualhost.sh" 
         dest: "~/bin/virtualhost.sh" 
         owner: "{{ ansible_user_id }}"
-        group: users 
+        group: "staff" 
         mode: 0655
 
     - name: copy vhost script conf
@@ -74,7 +82,7 @@
         src: "~/.slac-mac/virtualhost.sh.conf" 
         dest: "~/bin/virtualhost.sh.conf" 
         owner: "{{ ansible_user_id }}"
-        group: users 
+        group: "staff" 
         mode: 0655
   roles:
     - profile-all
@@ -85,6 +93,14 @@
     - git_user_name: "{{ ansible_user_id }}"
     - git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
     - mysql_root_password: "y0u$houldReallyChangeMe"
+    - drush_install_path: /usr/local/bin
+    - drush_version: "master"
+    - drush_keep_updated: no
+    - drush_force_update: no
+    - slac_sites:
+        - https://github.com/SLAC-OCIO/slac-www
+        - https://github.com/SLAC-OCIO/slac-features
+        - https://github.com/SLAC-OCIO/slac-gtw
     - sublime_packages:
         - dest: "SideBarEnhancements"
           repo: "https://github.com/titoBouzout/SideBarEnhancements"

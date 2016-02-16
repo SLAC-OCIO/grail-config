@@ -35,3 +35,6 @@
 
 - src: https://github.com/slac-ocio/ansible-role-skylab.git
   name: slac.superlumic-skylab
+
+- src: https://github.com/geerlingguy/ansible-role-drush
+  name: slac.drush

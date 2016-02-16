@@ -5,9 +5,3 @@ Compression yes
 ControlMaster auto
 ControlPath /tmp/%r@%h:%p
 ControlPersist yes
-
-Host drupal-admin01.slac.stanford.edu
-   Port 22
-
-Host flora.slac.stanford.edu
-   Port 22

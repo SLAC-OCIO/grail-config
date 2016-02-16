@@ -13,6 +13,33 @@
     - watch
     - rsync
     - git-flow
+    - ansible
+    - autoconf
+    - bash-completion
+    - boot2docker
+    - docker
+    - gettext
+    - go
+    - gpg
+    - hub
+    - iperf
+    - libdvdcss
+    - libevent
+    - packer
+    - python
+    - sqlite
+    - mcrypt
+    - ssh-copy-id
+    - cowsay
+    - ios-sim
+    - readline
+    - subversion
+    - kdiff3
+    - openssl
+    - pv
+    - wrk
+    - brew-cask
+    - mongodb
 
 - name: install developer cask applications
   homebrew_cask: name={{item}} state=present
@@ -23,3 +50,29 @@
     - java6
     - java7
     - java
+    - adium
+    - bettertouchtool
+    - google-chrome
+    - dropbox
+    - fing
+    - firefox
+    - handbrake
+    - karabiner
+    - limechat
+    - licecap
+    - macvim
+    - menumeters
+    - nvalt
+    - sequel-pro
+    - skype
+    - skitch
+    - seil
+    - sublime-text 
+    - textmate
+    - timemachineeditor
+    - tower
+    - transmit
+    - vagrant
+    - vagrant-manager
+    - vlc
+    - virtualbox

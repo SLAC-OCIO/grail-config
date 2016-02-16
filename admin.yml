@@ -4,11 +4,7 @@
   connection: local
 
   tasks:
-    - name: install personal cask applications
-      homebrew_cask: name={{item}} state=present
-      with_items:
-        - git
-        - mongodb
+
     - name: create ssh directory
       become: yes
       file:
@@ -19,11 +15,33 @@
         mode: 0777
       with_items:
         - /etc/ssh
+        - /etc/apache2/virtualhosts
+    
     - name: personal ssh config
       become: yes
       copy:
         src: files/ssh_config
         dest: /etc/ssh_config
+    
+    - name: copy virtualhost files
+      become: yes
+      file:
+        src: "files/{{item}}"
+        path: "/etc/apache2/virtualhosts"
+        owner: root
+        group: wheel
+        mode: 0655
+      with_items:
+        - slac_features.conf
+        - slac_gtw.conf
+        - slac_www.conf
+    - git: repo=ssh://git@github.com/mylogin/hello.git 
+        dest=/home/mylogin/hello
+          
+    - name: restart apache2
+      service: apache2
+      state: restart
+
     - name: add to sudoers without password
       become: yes
       lineinfile: >
@@ -33,16 +51,40 @@
         state=present
         create=true
       with_items:
-        - { regexp: '^admin', line: 'admin ALL=(ALL) NOPASSWD: ALL' }
+        - { regexp: '^{{ansible_user_id}}', line: '{{ansible_user_id}} ALL=(ALL) NOPASSWD: ALL' }
 
+    - name: create user bin
+      file:
+        path: "{{ ansible_user_id }}/bin"
+        state: directory
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        mode: 0755
+
+    - name: copy vhost script
+      copy: 
+        src: "~/.slac-mac/virtualhost.sh" 
+        dest: "~/bin/virtualhost.sh" 
+        owner: "{{ ansible_user_id }}"
+        group: users 
+        mode: 0655
+
+    - name: copy vhost script conf
+      copy: 
+        src: "~/.slac-mac/virtualhost.sh.conf" 
+        dest: "~/bin/virtualhost.sh.conf" 
+        owner: "{{ ansible_user_id }}"
+        group: users 
+        mode: 0655
   roles:
     - profile-all
     - profile-developer
 
   vars:
-    - computername: resetme
-    - git_user_name: slac-software
-    - git_user_email: cd-devops@slac.stanford.edu
+    - computername: "{{ ansible_user_id }}"
+    - git_user_name: "{{ ansible_user_id }}"
+    - git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
+    - mysql_root_password: "y0u$houldReallyChangeMe"
     - sublime_packages:
         - dest: "SideBarEnhancements"
           repo: "https://github.com/titoBouzout/SideBarEnhancements"

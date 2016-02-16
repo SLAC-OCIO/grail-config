@@ -40,4 +40,4 @@
   name: slac.drush
 
 - src: https://github.com/geerlingguy/ansible-role-composer
-  name: slac-composer
+  name: slac.composer

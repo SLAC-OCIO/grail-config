@@ -38,9 +38,9 @@
 
     - name: get slac websites
       git: 
-      repo: "{{item}}" 
-      dest: "/var/sites/{{item}}"
-      update: yes
+        repo: "{{item}}" 
+        dest: "/var/sites/{{item}}"
+        update: yes
       with_items: "{{slac_sites}}"
 
     - name: retart httpd (Darwin)

@@ -46,7 +46,6 @@
     - name: retart httpd (Darwin)
       become: yes
       command: "launchctl load -w /System/Library/LaunchDaemons/{{item}}.plist"
-      only_if: "'$ansible_system' == 'Darwin'"
       with_items:
         - org.apache.httpd
 

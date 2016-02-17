@@ -2,10 +2,16 @@
 
 - hosts: 127.0.0.1
   connection: local
+
+  vars_prompt:
+    - name: "github_username"
+      prompt: "Enter your Github Username"
+      private: no
+    - name: "github_email"
+      prompt: "Enter your Github email"
+      private: no
   
   tasks:
-
-    - debug: msg="System {{ inventory_hostname }} has uuid {{ php_version }}"
 
     - name: create ssh directory
       become: yes
@@ -17,6 +23,27 @@
         mode: 0777
       with_items:
         - /etc/ssh
+
+    - name: get git username
+      shell: git config --global --get user.name
+      register: git_user_name_result
+      changed_when: False
+      ignore_errors: yes
+
+    - name: get git user email
+      shell: git config --global --get user.email
+      register: git_user_email_result
+      changed_when: False
+      ignore_errors: yes
+
+    - name: set git username
+      shell: git config --global user.name "{{github_username}}"
+      when: git_user_name_result.stdout != "{{github_username}}" 
+
+    - name: set git user email
+      shell: git config --global user.email "{{github_email}}"
+      when: git_user_email_result.stdout != "{{github_email}}"
+ 
 
     - name: Improve ssh config
       become: yes
@@ -58,11 +85,20 @@
         owner: "{{ ansible_user_id }}"
         group: "staff" 
         mode: 0655
+        
   roles:
     - profile-all
     - profile-developer
     - profile-drupal-dev
+
   vars:
+    node_versions:
+    - 0.12
+    - 0.8
+
+    computername: "{{ ansible_user_id }}"
+    
+    default_node_version: 0.12
     #If you can, change this...
     mysql_root_password: "y0u$houldReallyChangeMe"
 

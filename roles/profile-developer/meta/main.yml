@@ -21,4 +21,5 @@ dependencies:
   - slac.superlumic-vim
   - slac.composer
   - slac.drush
+  - slac.sites-build
   - profile-all

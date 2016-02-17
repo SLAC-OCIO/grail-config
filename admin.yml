@@ -35,7 +35,7 @@
     
     - name: copy virtualhost files
       become: yes
-      file:
+      copy:
         src: files/slac_features.conf
         dest: /etc/apache2/virtualhosts/slac_features.conf
         owner: root
@@ -44,7 +44,7 @@
 
     - name: copy virtualhost files part 2
       become: yes
-      file:
+      copy:
         src: files/slac_gtw.conf
         dest: /etc/apache2/virtualhosts/slac_gtw.conf
         owner: root
@@ -53,7 +53,7 @@
 
     - name: copy virtualhost files part 3
       become: yes
-      file:
+      copy:
         src: files/slac_www.conf
         dest: /etc/apache2/virtualhosts/slac_www.conf
         owner: root

@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Vincent Flesouras
-  description: Ansible profile role for general developers
+  description: Ansible profile role for Drupal developers
   license: MIT
   min_ansible_version: 1.3
   platforms:
@@ -14,6 +14,12 @@ dependencies:
   - slac.superlumic-computername
   - slac.superlumic-cli
   - slac.superlumic-homebrew
+  - slac.superlumic-mysql
+  - slac.superlumic-php
   - slac.superlumic-sublimetext
   - slac.superlumic-node
   - slac.superlumic-vim
+  - slac.composer
+  - slac.drush
+  - slac.sites-build
+  - profile-all

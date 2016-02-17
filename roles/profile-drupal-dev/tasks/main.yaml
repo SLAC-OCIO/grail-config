@@ -39,21 +39,25 @@
     - wrk
     - brew-cask
     - mongodb
-    - sl
 
 - name: install developer cask applications
   homebrew_cask: name={{item}} state=present
   with_items:
     - imageoptim
+    - phpstorm
+    - sequel-pro
     - java6
     - java7
     - java
     - adium
     - bettertouchtool
+    - google-chrome
     - dropbox
     - fing
+    - firefox
     - handbrake
     - karabiner
+    - limechat
     - licecap
     - macvim
     - menumeters
@@ -65,6 +69,7 @@
     - sublime-text 
     - textmate
     - timemachineeditor
+    - tower
     - transmit
     - vagrant
     - vagrant-manager

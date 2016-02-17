@@ -1,5 +1,4 @@
 ---
-
 - src: https://github.com/slac-ocio/ansible-role-homebrew.git
   name: slac.grail-homebrew
 

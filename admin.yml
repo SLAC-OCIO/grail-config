@@ -63,7 +63,7 @@
     - name: create sites directory
       become: yes
       file:
-        path:/var/sites
+        path: "{{website_path}}"
         owner: "{{ ansible_user_id }}"
         group: staff
         mode: 0777
@@ -71,7 +71,7 @@
     - name: get slac websites
       git: 
         repo: "{{item}}" 
-        dest: "/var/sites/"
+        dest: "{{website_path}}"
         update: yes
       with_items: "{{slac_sites}}"
 
@@ -123,6 +123,7 @@
     - computername: "{{ ansible_user_id }}"
     - git_user_name: "{{ ansible_user_id }}"
     - git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
+    - website_path: "/var/sites"
     - mysql_root_password: "y0u$houldReallyChangeMe"
     - drush_install_path: /usr/local/share/drush
     - drush_version: "master"

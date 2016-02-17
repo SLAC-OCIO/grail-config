@@ -62,3 +62,145 @@
     - profile-all
     - profile-developer
     - profile-drupal-dev
+  vars:
+    #If you can, change this...
+    mysql_root_password: "y0u$houldReallyChangeMe"
+
+    #at your discretion, but I find it works best here
+    website_path: "/var/sites"
+
+    #If you can edit, you should - but git has to have something
+    git_user_name: "{{ ansible_user_id }}"
+    git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
+
+    #Which SLAC Sites do you want locally?
+    #Repo is the github repository
+    #Site-name will be directory, url and db name
+    slac_sites:
+      - repo: https://github.com/SLAC-OCIO/slac-www.git
+        site_name: slac-www
+      - repo: https://github.com/SLAC-OCIO/slac-features.git
+        site_name: slac-features
+      - repo: https://github.com/SLAC-OCIO/slac-gtw.git
+        site_name: slac-gtw
+        
+    #do not change after this line
+    drush_install_path: /usr/local/share/drush
+    drush_version: "master"
+    drush_keep_updated: no
+    drush_force_update: no
+    composer_path: /usr/local/bin/composer
+    composer_home_owner: root
+    composer_home_group: wheel
+    php_version: 55
+    #do not change before this line
+
+    #you may add packages at your discretion
+    sublime_packages:
+      - dest: "SideBarEnhancements"
+        repo: "https://github.com/titoBouzout/SideBarEnhancements"
+        version: "st3"
+      - dest: "GitGutter"
+        repo: "https://github.com/jisaacks/GitGutter.git"
+        version: "master"
+      - dest: "BracketHighlighter"
+        repo: "https://github.com/facelessuser/BracketHighlighter.git"
+        version: "master"
+      - dest: "Base16"
+        repo: "https://github.com/chriskempson/base16-textmate.git"
+        version: "master"
+      - dest: "Theme - Soda"
+        repo: "https://github.com/buymeasoda/soda-theme.git"
+        version: "master"
+      - dest: "ApplySyntax"
+        repo: "https://github.com/facelessuser/ApplySyntax.git"
+        version: "master"
+      - dest: "SublimeAllAutocomplete"
+        repo: "https://github.com/alienhard/SublimeAllAutocomplete"
+        version: "master"
+      - dest: "Ansible"
+        repo: "https://github.com/clifford-github/sublime-ansible.git"
+        version: "master"
+
+    #Change your default color scheme here    
+    sublime_text_color_scheme: "Packages/Base16/base16-eighties.dark.tmTheme"
+    sublime_text_theme: "Soda Dark 3.sublime-theme"
+
+    #These are optional but very useful
+    osx_defaults:
+      - domain: 'com.apple.dock'
+        key: 'autohide'
+        type: boolean
+        value: true
+      - domain: 'com.apple.dock'
+        key: 'minimize-to-application'
+        type: integer
+        value: 1
+      - domain: 'com.apple.dock'
+        key: 'show-process-indicators'
+        type: boolean
+        value: true
+      - domain: 'NSGlobalDomain'
+        key: 'NSTableViewDefaultSizeMode'
+        type: integer
+        value: 1
+      - domain: 'com.apple.screencapture'
+        key: 'type'
+        type: string
+        value: png
+      - domain: 'NSGlobalDomain'
+        key: 'KeyRepeat'
+        type: integer
+        value: 2
+      - domain: 'NSGlobalDomain'
+        key: 'InitialKeyRepeat'
+        type: integer
+        value: 15
+      - domain: 'com.apple.menuextra.clock'
+        key: 'DateFormat'
+        type: string
+        value: EEE MMM d  HH:mm
+      - domain: 'com.apple.menuextra.battery'
+        key: 'ShowPercent'
+        type: string
+        value: 'YES'
+      - domain: 'com.apple.finder'
+        key: 'FXPreferredViewStyle'
+        type: string
+        value: "clmv"
+      - domain: 'NSGlobalDomain'
+        key: 'NSNavPanelExpandedStateForSaveMode'
+        type: boolean
+        value: true
+      - domain: 'NSGlobalDomain'
+        key: 'PMPrintingExpandedStateForPrint'
+        type: boolean
+        value: true
+      - domain: 'com.apple.dock'
+        key: 'tilesize'
+        type: float
+        value: 32
+      - domain: 'com.apple.dock'
+        key: 'autohide-time-modifier'
+        type: int
+        value: 0
+      - domain: 'com.apple.dock'
+        key: 'autohide-delay'
+        type: int
+        value: 0
+      - domain: 'NSGlobalDomain'
+        key: 'NSQuitAlwaysKeepsWindows'
+        type: boolean
+        value: false
+      - domain: 'NSGlobalDomain'
+        key: 'ApplePressAndHoldEnabled'
+        type: boolean
+        value: false
+      - domain: 'com.apple.desktopservices'
+        key: 'DSDontWriteNetworkStores'
+        type: boolean
+        value: true
+      - domain: 'com.apple.print.PrintingPrefs'
+        key: 'Quit When Finished'
+        type: boolean
+        value: true

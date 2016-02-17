@@ -16,6 +16,12 @@
       with_items:
         - /etc/ssh
 
+    - name: personal ssh config
+      become: yes
+      copy:
+        src: files/ssh_config
+        dest: /etc/ssh_config
+
     - name: create vhost directory
       become: yes
       file:
@@ -26,12 +32,6 @@
         mode: 0777
       with_items:
         - /etc/apache2/virtualhosts
-    
-    - name: personal ssh config
-      become: yes
-      copy:
-        src: files/ssh_config
-        dest: /etc/ssh_config
     
     - name: copy virtualhost files
       become: yes
@@ -71,10 +71,17 @@
 
     - name: get slac websites
       git: 
-        repo: "{{item}}" 
-        dest: "{{website_path}}"
+        repo: "{{item.repo}}" 
+        dest: "{{item.site_name}}"
         update: yes
       with_items: "{{slac_sites}}"
+    
+    - name: Update /etc/hosts
+      lineinfile: 
+        dest:/etc/hosts 
+        line:'{{ item.site_name }} 127.0.0.1' 
+        state:present
+      with_items: '{{ slac_sites }}'
 
     - name: retart httpd (Darwin)
       become: yes
@@ -95,7 +102,7 @@
 
     - name: create user bin
       file:
-        path: "{{ ansible_user_id }}/bin"
+        path: "~/bin"
         state: directory
         owner: "{{ ansible_user_id }}"
         group: "staff"
@@ -134,9 +141,13 @@
     - composer_home_owner: root
     - composer_home_group: wheel
     - slac_sites:
-        - https://github.com/SLAC-OCIO/slac-www
-        - https://github.com/SLAC-OCIO/slac-features
-        - https://github.com/SLAC-OCIO/slac-gtw
+        - repo: https://github.com/SLAC-OCIO/slac-www
+          site_name: slac-www
+        - repo: https://github.com/SLAC-OCIO/slac-features
+          site_name: slac-features
+        - repo: https://github.com/SLAC-OCIO/slac-gtw
+          site_name: slac-gtw
+
     - sublime_packages:
         - dest: "SideBarEnhancements"
           repo: "https://github.com/titoBouzout/SideBarEnhancements"

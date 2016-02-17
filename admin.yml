@@ -109,19 +109,22 @@
       become: true
       file: 
         path: /var/log/slac-www/logs
-        creates: yes
+        state: directory
+        
 
     - name: add log dir 2
       become: true
       file: 
         path: /var/log/slac-gtw/logs
-        creates: yes
+        state: directory
+        
 
     - name: add log dir 3
       become: true
       file: 
         path: /var/log/slac-features/logs
-        creates: yes
+        state: directory
+        
 
     - name: Enable virtualhosts
       become: yes

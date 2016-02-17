@@ -1,6 +1,4 @@
----
 #If you can, change this...
-
 mysql_root_password: "y0u$houldReallyChangeMe"
 
 #at your discretion, but I find it works best here

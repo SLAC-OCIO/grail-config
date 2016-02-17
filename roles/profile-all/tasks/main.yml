@@ -10,8 +10,3 @@
     - google-chrome
     - firefox
     - iterm2
-
-- vars:
-  #you can set a more specific computer name here
-  #defaults to the user logged in.
-    computername: "{{ ansible_user_id }}"

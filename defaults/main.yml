@@ -11,6 +11,7 @@ drush_force_update: no
 composer_path: /usr/local/bin/composer
 composer_home_owner: root
 composer_home_group: wheel
+php_version: 55
 #do not change before this line
 
 #you may add packages at your discretion

@@ -36,33 +36,30 @@
     - name: copy virtualhost files
       become: yes
       file:
-        src: "files/{{item}}"
+        src: "files/slac_features.conf"
         path: "/etc/apache2/virtualhosts"
         owner: root
         group: wheel
         mode: 0655
-      with_items:
-        - slac_features.conf
+
     - name: copy virtualhost files part 2
       become: yes
       file:
-        src: "files/{{item}}"
+        src: "files/slac_gtw.conf"
         path: "/etc/apache2/virtualhosts"
         owner: root
         group: wheel
         mode: 0655
-      with_items:
-        - slac_gtw.conf
+
     - name: copy virtualhost files part 3
       become: yes
       file:
-        src: "files/{{item}}"
+        src: "files/slac_www.conf"
         path: "/etc/apache2/virtualhosts"
         owner: root
         group: wheel
         mode: 0655
-      with_items:
-        - slac_www.conf
+
 
     - name: get slac websites
       git: 

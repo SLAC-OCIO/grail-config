@@ -105,6 +105,23 @@
         line: "slac-www 127.0.0.1"
         state: present
       
+    - name: add log dir 1
+      become: true
+      file: 
+        path: /var/log/slac-www/logs
+        creates: yes
+
+    - name: add log dir 2
+      become: true
+      file: 
+        path: /var/log/slac-gtw/logs
+        creates: yes
+
+    - name: add log dir 3
+      become: true
+      file: 
+        path: /var/log/slac-features/logs
+        creates: yes
 
     - name: Enable virtualhosts
       become: yes

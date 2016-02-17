@@ -30,7 +30,6 @@
     - sqlite
     - mcrypt
     - ssh-copy-id
-    - cowsay
     - ios-sim
     - readline
     - subversion

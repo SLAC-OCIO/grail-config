@@ -14,8 +14,7 @@
         mode: 0777
       with_items:
         - /etc/ssh
-        - /etc/apache2/virtualhosts
-
+        
     - name: create vhost directory
       become: yes
       file:

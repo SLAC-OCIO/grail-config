@@ -2,14 +2,6 @@
 
 - hosts: 127.0.0.1
   connection: local
-
-  vars_prompt:
-    - name: "github_username"
-      prompt: "Enter your Github Username"
-      private: no
-    - name: "github_email"
-      prompt: "Enter your Github email"
-      private: no
   
   tasks:
 
@@ -24,25 +16,12 @@
       with_items:
         - /etc/ssh
 
-    - name: get git username
-      shell: git config --global --get user.name
-      register: git_user_name_result
-      changed_when: False
-      ignore_errors: yes
-
-    - name: get git user email
-      shell: git config --global --get user.email
-      register: git_user_email_result
-      changed_when: False
-      ignore_errors: yes
-
     - name: set git username
-      shell: git config --global user.name "{{github_username}}"
-      when: git_user_name_result.stdout != "{{github_username}}" 
+      shell: git config --global user.name "{{git_user_name:}}"
+      
 
     - name: set git user email
-      shell: git config --global user.email "{{github_email}}"
-      when: git_user_email_result.stdout != "{{github_email}}"
+      shell: git config --global user.email "{{git_user_email}}"
  
 
     - name: Improve ssh config

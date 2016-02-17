@@ -105,7 +105,8 @@
         group: wheel
         line: "ServerName localhost"  
         state: present 
-    - name: Set Hostname
+        
+    - name: Set Admin Email
       become: yes
       lineinfile:
         backup: true  

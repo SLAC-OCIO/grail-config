@@ -41,3 +41,5 @@
 
 - src: https://github.com/slac-ocio/ansible-role-composer
   name: slac.composer
+- src: https://github.com/SLAC-OCIO/ansible-slac-sites-build.git
+  name: slac.sites-build

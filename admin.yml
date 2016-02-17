@@ -2,7 +2,7 @@
 
 - hosts: 127.0.0.1
   connection: local
-  sudo: true
+  
 
   tasks:
     - name: create ssh directory
@@ -43,7 +43,25 @@
         mode: 0655
       with_items:
         - slac_features.conf
+     - name: copy virtualhost files
+      become: yes
+      file:
+        src: "files/{{item}}"
+        path: "/etc/apache2/virtualhosts"
+        owner: root
+        group: wheel
+        mode: 0655
+      with_items:
         - slac_gtw.conf
+     - name: copy virtualhost files
+      become: yes
+      file:
+        src: "files/{{item}}"
+        path: "/etc/apache2/virtualhosts"
+        owner: root
+        group: wheel
+        mode: 0655
+      with_items:
         - slac_www.conf
 
     - name: get slac websites

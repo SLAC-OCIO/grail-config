@@ -1,46 +1,46 @@
 ---
 
 - src: https://github.com/slac-ocio/ansible-role-homebrew.git
-  name: slac.superlumic-homebrew
+  name: slac.grail-homebrew
 
 - src: https://github.com/slac-ocio/ansible-role-cli.git
-  name: slac.superlumic-cli
+  name: slac.grail-cli
 
 - src: https://github.com/slac-ocio/ansible-role-osx-defaults.git
-  name: slac.superlumic-osx-defaults
+  name: slac.grail-osx-defaults
 
 - src: https://github.com/slac-ocio/ansible-role-computername.git
-  name: slac.superlumic-computername
+  name: slac.grail-computername
 
 - src: https://github.com/slac-ocio/ansible-role-mysql.git
-  name: slac.superlumic-mysql
+  name: slac.grail-mysql
 
 - src: https://github.com/slac-ocio/ansible-role-php.git
-  name: slac.superlumic-php
+  name: slac.grail-php
 
 - src: https://github.com/slac-ocio/ansible-role-sublimetext.git
-  name: slac.superlumic-sublimetext
+  name: slac.grail-sublimetext
 
 - src: https://github.com/slac-ocio/ansible-role-node.git
-  name: slac.superlumic-node
+  name: slac.grail-node
 
 - src: https://github.com/slac-ocio/ansible-role-postgresql.git
-  name: slac.superlumic-postgresql
+  name: slac.grail-postgresql
 
 - src: https://github.com/slac-ocio/ansible-role-vim.git
-  name: slac.superlumic-vim
+  name: slac.grail-vim
 
 - src: https://github.com/slac-ocio/ansible-role-modjk.git
-  name: slac.superlumic-modjk
+  name: slac.grail-modjk
 
 - src: https://github.com/slac-ocio/ansible-role-skylab.git
-  name: slac.superlumic-skylab
+  name: slac.grail-skylab
 
 - src: https://github.com/slac-ocio/ansible-role-drush.git
-  name: slac.drush
+  name: slac.grail-drush
 
 - src: https://github.com/slac-ocio/ansible-role-composer
-  name: slac.composer
+  name: slac.grail-composer
   
-- src: https://github.com/SLAC-OCIO/ansible-slac-sites-build.git
-  name: slac.sites-build
+- src: https://github.com/slac-ocio/ansible-slac-sites-build.git
+  name: slac.grail-sites-build

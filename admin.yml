@@ -37,7 +37,7 @@
       become: yes
       file:
         src: "files/slac_features.conf"
-        path: "/etc/apache2/virtualhosts"
+        dest: "/etc/apache2/virtualhosts/slac_features.conf"
         owner: root
         group: wheel
         mode: 0655
@@ -46,7 +46,7 @@
       become: yes
       file:
         src: "files/slac_gtw.conf"
-        path: "/etc/apache2/virtualhosts"
+        dest: "/etc/apache2/virtualhosts/slac_gtw.conf"
         owner: root
         group: wheel
         mode: 0655
@@ -55,7 +55,7 @@
       become: yes
       file:
         src: "files/slac_www.conf"
-        path: "/etc/apache2/virtualhosts"
+        dest: "/etc/apache2/virtualhosts/slac_www.conf"
         owner: root
         group: wheel
         mode: 0655

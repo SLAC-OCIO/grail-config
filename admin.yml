@@ -43,7 +43,7 @@
         mode: 0655
       with_items:
         - slac_features.conf
-     - name: copy virtualhost files
+    - name: copy virtualhost files part 2
       become: yes
       file:
         src: "files/{{item}}"
@@ -53,7 +53,7 @@
         mode: 0655
       with_items:
         - slac_gtw.conf
-     - name: copy virtualhost files
+    - name: copy virtualhost files part 3
       become: yes
       file:
         src: "files/{{item}}"

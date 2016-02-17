@@ -11,9 +11,9 @@ galaxy_info:
   categories:
     - system
 dependencies:
-  - slac.superlumic-computername
-  - slac.superlumic-cli
-  - slac.superlumic-homebrew
-  - slac.superlumic-sublimetext
-  - slac.superlumic-node
-  - slac.superlumic-vim
+  - slac.grail-computername
+  - slac.grail-cli
+  - slac.grail-homebrew
+  - slac.grail-sublimetext
+  - slac.grail-node
+  - slac.grail-vim

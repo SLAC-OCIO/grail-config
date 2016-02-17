@@ -11,5 +11,5 @@ galaxy_info:
   categories:
     - system
 dependencies:
-  - slac.superlumic-computername
-  - slac.superlumic-cli
+  - slac.grail-computername
+  - slac.grail-cli

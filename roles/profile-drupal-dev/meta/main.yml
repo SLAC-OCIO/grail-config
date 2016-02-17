@@ -11,15 +11,15 @@ galaxy_info:
   categories:
     - system
 dependencies:
-  - slac.superlumic-computername
-  - slac.superlumic-cli
-  - slac.superlumic-homebrew
-  - slac.superlumic-mysql
-  - slac.superlumic-php
-  - slac.superlumic-sublimetext
-  - slac.superlumic-node
-  - slac.superlumic-vim
-  - slac.composer
-  - slac.drush
-  - slac.sites-build
+  - slac.grail-computername
+  - slac.grail-cli
+  - slac.grail-homebrew
+  - slac.grail-mysql
+  - slac.grail-php
+  - slac.grail-sublimetext
+  - slac.grail-node
+  - slac.grail-vim
+  - slac.grail-composer
+  - slac.grail-drush
+  - slac.grail-sites-build
   - profile-all

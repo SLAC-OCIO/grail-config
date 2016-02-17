@@ -64,6 +64,7 @@
       become: yes
       file:
         path: "{{website_path}}"
+        state: directory
         owner: "{{ ansible_user_id }}"
         group: staff
         mode: 0777

@@ -77,11 +77,13 @@
       with_items: "{{slac_sites}}"
     
     - name: Update /etc/hosts
-      lineinfile: 
-        dest:/etc/hosts
+      become: true
+      lineinfile:
+        backup: true 
+        dest: /etc/hosts
         create: true 
         line:'{{ item.site_name }} 127.0.0.1' 
-        state:present
+        state: present
       with_items: '{{ slac_sites }}'
 
     - name: Enable virtualhosts

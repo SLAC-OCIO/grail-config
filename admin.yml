@@ -95,6 +95,9 @@
     - drush_version: "master"
     - drush_keep_updated: no
     - drush_force_update: no
+    - composer_path: /usr/local/bin/composer
+    - composer_home_owner: root
+    - composer_home_group: wheel
     - slac_sites:
         - https://github.com/SLAC-OCIO/slac-www
         - https://github.com/SLAC-OCIO/slac-features

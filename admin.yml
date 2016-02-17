@@ -71,20 +71,40 @@
 
     - name: get slac websites
       git: 
-        repo: "{{item.repo}}" 
-        dest: "{{item.site_name}}"
+        repo: "{{ item.repo }}.git" 
+        dest: "/var/sites/{{ item.site_name }}"
         update: yes
-      with_items: "{{slac_sites}}"
+      with_items: "{{ slac_sites }}"
     
-    - name: Update /etc/hosts
+    - name: Update /etc/hosts 1
       become: true
       lineinfile:
         backup: true 
         dest: /etc/hosts
         create: true 
-        line: "{{ item.site_name }} 127.0.0.1"
+        line: "slac-features 127.0.0.1"
         state: present
-      with_items: '{{ slac_sites }}'
+      
+    
+    - name: Update /etc/hosts 2
+      become: true
+      lineinfile:
+        backup: true 
+        dest: /etc/hosts
+        create: true 
+        line: "slac-gtw 127.0.0.1"
+        state: present
+      
+
+    - name: Update /etc/hosts 3
+      become: true
+      lineinfile:
+        backup: true 
+        dest: /etc/hosts
+        create: true 
+        line: "slac-www 127.0.0.1"
+        state: present
+      
 
     - name: Enable virtualhosts
       become: yes
@@ -105,7 +125,7 @@
         group: wheel
         line: "ServerName localhost"  
         state: present 
-        
+
     - name: Set Admin Email
       become: yes
       lineinfile:

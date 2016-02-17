@@ -3,7 +3,6 @@
 - hosts: 127.0.0.1
   connection: local
   
-
   tasks:
     - name: create ssh directory
       become: yes
@@ -16,153 +15,13 @@
       with_items:
         - /etc/ssh
 
-    - name: personal ssh config
+    - name: Improve ssh config
       become: yes
       copy:
         src: files/ssh_config
         dest: /etc/ssh_config
 
-    - name: create vhost directory
-      become: yes
-      file:
-        path: "{{item}}"
-        state: directory
-        owner: root
-        group: wheel
-        mode: 0777
-      with_items:
-        - /etc/apache2/virtualhosts
-    
-    - name: copy virtualhost files
-      become: yes
-      copy:
-        src: files/slac_features.conf
-        dest: /etc/apache2/virtualhosts/slac_features.conf
-        owner: root
-        group: wheel
-        mode: 0655
-
-    - name: copy virtualhost files part 2
-      become: yes
-      copy:
-        src: files/slac_gtw.conf
-        dest: /etc/apache2/virtualhosts/slac_gtw.conf
-        owner: root
-        group: wheel
-        mode: 0655
-
-    - name: copy virtualhost files part 3
-      become: yes
-      copy:
-        src: files/slac_www.conf
-        dest: /etc/apache2/virtualhosts/slac_www.conf
-        owner: root
-        group: wheel
-        mode: 0655
-
-    - name: create sites directory
-      become: yes
-      file:
-        path: "{{website_path}}"
-        state: directory
-        owner: "{{ ansible_user_id }}"
-        group: staff
-        mode: 0777
-
-    - name: get slac websites
-      git: 
-        repo: "{{ item.repo }}.git" 
-        dest: "/var/sites/{{ item.site_name }}"
-        update: yes
-      with_items: "{{ slac_sites }}"
-    
-    - name: Update /etc/hosts 1
-      become: true
-      lineinfile:
-        backup: true 
-        dest: /etc/hosts
-        create: true 
-        line: "slac-features 127.0.0.1"
-        state: present
-      
-    
-    - name: Update /etc/hosts 2
-      become: true
-      lineinfile:
-        backup: true 
-        dest: /etc/hosts
-        create: true 
-        line: "slac-gtw 127.0.0.1"
-        state: present
-      
-
-    - name: Update /etc/hosts 3
-      become: true
-      lineinfile:
-        backup: true 
-        dest: /etc/hosts
-        create: true 
-        line: "slac-www 127.0.0.1"
-        state: present
-      
-    - name: add log dir 1
-      become: true
-      file: 
-        path: /var/log/slac-www/logs
-        state: directory
-        
-
-    - name: add log dir 2
-      become: true
-      file: 
-        path: /var/log/slac-gtw/logs
-        state: directory
-        
-
-    - name: add log dir 3
-      become: true
-      file: 
-        path: /var/log/slac-features/logs
-        state: directory
-        
-
-    - name: Enable virtualhosts
-      become: yes
-      lineinfile:
-        backup: true  
-        dest: /etc/apache2/httpd.conf  
-        group: wheel  
-        insertafter: "^Include /private/etc/apache2/other/*.conf" 
-        line: "Include /private/etc/apache2/virtualhosts/*"  
-        state: present 
-
-    - name: Set Hostname
-      become: yes
-      lineinfile:
-        backup: true  
-        dest: /etc/apache2/httpd.conf
-        regexp: "^#ServerName www.example.com:80"  
-        group: wheel
-        line: "ServerName localhost"  
-        state: present 
-
-    - name: Set Admin Email
-      become: yes
-      lineinfile:
-        backup: true  
-        dest: /etc/apache2/httpd.conf
-        regexp: "^#ServerName you@example.com"  
-        group: wheel
-        line: "ServerAdmin {{ git_user_email }}"  
-        state: present 
-     
-    - name: retart httpd (Darwin)
-      become: yes
-      command: "launchctl load -w /System/Library/LaunchDaemons/{{item}}.plist"
-      with_items:
-        - org.apache.httpd
-
-    - name: add to sudoers without password
+    - name: Add to user to sudoers without password
       become: yes
       lineinfile: >
         dest=/etc/sudoers
@@ -173,7 +32,7 @@
       with_items:
         - { regexp: '^{{ansible_user_id}}', line: '{{ansible_user_id}} ALL=(ALL) NOPASSWD: ALL' }
 
-    - name: create user bin
+    - name: Create user bin directory
       file:
         path: "~/bin"
         state: directory
@@ -181,7 +40,7 @@
         group: "staff"
         mode: 0755
 
-    - name: copy vhost script
+    - name: Copy vhost script
       copy: 
         src: "~/.slac-mac/virtualhost.sh" 
         dest: "~/bin/virtualhost.sh" 
@@ -199,129 +58,3 @@
   roles:
     - profile-all
     - profile-developer
-
-  vars:
-    - computername: "{{ ansible_user_id }}"
-    - git_user_name: "{{ ansible_user_id }}"
-    - git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
-    - website_path: "/var/sites"
-    - mysql_root_password: "y0u$houldReallyChangeMe"
-    - drush_install_path: /usr/local/share/drush
-    - drush_version: "master"
-    - drush_keep_updated: no
-    - drush_force_update: no
-    - composer_path: /usr/local/bin/composer
-    - composer_home_owner: root
-    - composer_home_group: wheel
-    - slac_sites:
-        - repo: https://github.com/SLAC-OCIO/slac-www
-          site_name: slac-www
-        - repo: https://github.com/SLAC-OCIO/slac-features
-          site_name: slac-features
-        - repo: https://github.com/SLAC-OCIO/slac-gtw
-          site_name: slac-gtw
-
-    - sublime_packages:
-        - dest: "SideBarEnhancements"
-          repo: "https://github.com/titoBouzout/SideBarEnhancements"
-          version: "st3"
-        - dest: "GitGutter"
-          repo: "https://github.com/jisaacks/GitGutter.git"
-          version: "master"
-        - dest: "BracketHighlighter"
-          repo: "https://github.com/facelessuser/BracketHighlighter.git"
-          version: "master"
-        - dest: "Base16"
-          repo: "https://github.com/chriskempson/base16-textmate.git"
-          version: "master"
-        - dest: "Theme - Soda"
-          repo: "https://github.com/buymeasoda/soda-theme.git"
-          version: "master"
-        - dest: "ApplySyntax"
-          repo: "https://github.com/facelessuser/ApplySyntax.git"
-          version: "master"
-        - dest: "SublimeAllAutocomplete"
-          repo: "https://github.com/alienhard/SublimeAllAutocomplete"
-          version: "master"
-        - dest: "Ansible"
-          repo: "https://github.com/clifford-github/sublime-ansible.git"
-          version: "master"
-    - sublime_text_color_scheme: "Packages/Base16/base16-eighties.dark.tmTheme"
-    - sublime_text_theme: "Soda Dark 3.sublime-theme"
-    - osx_defaults:
-      - domain: 'com.apple.dock'
-        key: 'autohide'
-        type: boolean
-        value: true
-      - domain: 'com.apple.dock'
-        key: 'minimize-to-application'
-        type: integer
-        value: 1
-      - domain: 'com.apple.dock'
-        key: 'show-process-indicators'
-        type: boolean
-        value: true
-      - domain: 'NSGlobalDomain'
-        key: 'NSTableViewDefaultSizeMode'
-        type: integer
-        value: 1
-      - domain: 'com.apple.screencapture'
-        key: 'type'
-        type: string
-        value: png
-      - domain: 'NSGlobalDomain'
-        key: 'KeyRepeat'
-        type: integer
-        value: 2
-      - domain: 'NSGlobalDomain'
-        key: 'InitialKeyRepeat'
-        type: integer
-        value: 15
-      - domain: 'com.apple.menuextra.clock'
-        key: 'DateFormat'
-        type: string
-        value: EEE MMM d  HH:mm
-      - domain: 'com.apple.menuextra.battery'
-        key: 'ShowPercent'
-        type: string
-        value: 'YES'
-      - domain: 'com.apple.finder'
-        key: 'FXPreferredViewStyle'
-        type: string
-        value: "clmv"
-      - domain: 'NSGlobalDomain'
-        key: 'NSNavPanelExpandedStateForSaveMode'
-        type: boolean
-        value: true
-      - domain: 'NSGlobalDomain'
-        key: 'PMPrintingExpandedStateForPrint'
-        type: boolean
-        value: true
-      - domain: 'com.apple.dock'
-        key: 'tilesize'
-        type: float
-        value: 32
-      - domain: 'com.apple.dock'
-        key: 'autohide-time-modifier'
-        type: int
-        value: 0
-      - domain: 'com.apple.dock'
-        key: 'autohide-delay'
-        type: int
-        value: 0
-      - domain: 'NSGlobalDomain'
-        key: 'NSQuitAlwaysKeepsWindows'
-        type: boolean
-        value: false
-      - domain: 'NSGlobalDomain'
-        key: 'ApplePressAndHoldEnabled'
-        type: boolean
-        value: false
-      - domain: 'com.apple.desktopservices'
-        key: 'DSDontWriteNetworkStores'
-        type: boolean
-        value: true
-      - domain: 'com.apple.print.PrintingPrefs'
-        key: 'Quit When Finished'
-        type: boolean
-        value: true

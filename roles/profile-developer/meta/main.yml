@@ -19,6 +19,6 @@ dependencies:
   - slac.superlumic-sublimetext
   - slac.superlumic-node
   - slac.superlumic-vim
-  - slac.drush
   - slac.composer
+  - slac.drush
   - profile-all

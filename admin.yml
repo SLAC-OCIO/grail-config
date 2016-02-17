@@ -60,11 +60,18 @@
         group: wheel
         mode: 0655
 
+    - name: create sites directory
+      become: yes
+      file:
+        path:/var/sites
+        owner: "{{ ansible_user_id }}"
+        group: staff
+        mode: 0777
 
     - name: get slac websites
       git: 
         repo: "{{item}}" 
-        dest: "/var/sites/{{item}}"
+        dest: "/var/sites/"
         update: yes
       with_items: "{{slac_sites}}"
 

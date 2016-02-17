@@ -78,11 +78,41 @@
     
     - name: Update /etc/hosts
       lineinfile: 
-        dest:/etc/hosts 
+        dest:/etc/hosts
+        create: true 
         line:'{{ item.site_name }} 127.0.0.1' 
         state:present
       with_items: '{{ slac_sites }}'
 
+    - name: Enable virtualhosts
+      become: yes
+      lineinfile:
+        backup: true  
+        dest: /etc/apache2/httpd.conf  
+        group: wheel  
+        insertafter: "^Include /private/etc/apache2/other/*.conf" 
+        line: "Include /private/etc/apache2/virtualhosts/*"  
+        state: present 
+
+    - name: Set Hostname
+      become: yes
+      lineinfile:
+        backup: true  
+        dest: /etc/apache2/httpd.conf
+        regexp: "^#ServerName www.example.com:80"  
+        group: wheel
+        line: "ServerName localhost"  
+        state: present 
+    - name: Set Hostname
+      become: yes
+      lineinfile:
+        backup: true  
+        dest: /etc/apache2/httpd.conf
+        regexp: "^#ServerName you@example.com"  
+        group: wheel
+        line: "ServerAdmin {{ git_user_email }}"  
+        state: present 
+     
     - name: retart httpd (Darwin)
       become: yes
       command: "launchctl load -w /System/Library/LaunchDaemons/{{item}}.plist"

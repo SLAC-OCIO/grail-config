@@ -39,5 +39,5 @@
 - src: https://github.com/slac-ocio/ansible-role-drush.git
   name: slac.drush
 
-- src: https://github.com/geerlingguy/ansible-role-composer
+- src: https://github.com/slac-ocio/ansible-role-composer
   name: slac.composer

@@ -42,3 +42,12 @@
 
   roles:
     - profile-all
+
+  vars:
+    
+    username: "{{ ansible_user_id }}"
+    computername: "{{ ansible_user_id }}"
+    git_user_name: "{{ username }}"
+    git_user_email: your@email.address
+
+    

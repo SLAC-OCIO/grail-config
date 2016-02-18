@@ -17,3 +17,4 @@ dependencies:
   - slac.grail-sublimetext
   - slac.grail-node
   - slac.grail-vim
+  - slac.grail-osx-defaults

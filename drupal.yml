@@ -16,19 +16,18 @@
       with_items:
         - /etc/ssh
 
-    - name: set git username
-      shell: git config --global user.name "{{git_user_name:}}"
-      
-
-    - name: set git user email
-      shell: git config --global user.email "{{git_user_email}}"
- 
-
     - name: Improve ssh config
       become: yes
       copy:
         src: files/ssh_config
-        dest: /etc/ssh_config
+        dest: /etc/ssh_config  
+
+    - name: set git username
+      shell: "git config --global user.name {{git_user_name:}}"
+
+    - name: set git user email
+      shell: "git config --global user.email {{git_user_email}}"
+ 
 
     - name: Add to user to sudoers without password
       become: yes

@@ -5,6 +5,7 @@
 
 - name: install developer brew applications
   homebrew: name={{item}} state=latest
+  ignore_errors: yes
   with_items:
     - wget
     - pwgen
@@ -42,6 +43,7 @@
 
 - name: install developer cask applications
   homebrew_cask: name={{item}} state=present
+  ignore_errors: yes
   with_items:
     - imageoptim
     - phpstorm

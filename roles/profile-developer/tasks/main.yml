@@ -5,6 +5,7 @@
 
 - name: install developer brew applications
   homebrew: name={{item}} state=latest
+  ignore_errors: yes
   with_items:
     - wget
     - pwgen
@@ -40,9 +41,11 @@
     - brew-cask
     - mongodb
     - sl
+    
 
 - name: install developer cask applications
   homebrew_cask: name={{item}} state=present
+  ignore_errors: yes
   with_items:
     - imageoptim
     - java6
@@ -61,7 +64,6 @@
     - sequel-pro
     - skype
     - skitch
-    - seil
     - sublime-text 
     - textmate
     - timemachineeditor

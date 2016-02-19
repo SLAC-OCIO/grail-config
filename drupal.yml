@@ -80,16 +80,17 @@
     #If you can edit, you should - but git has to have something
     git_user_name: "{{ ansible_user_id }}"
     git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
+
     git_config:
       user:
-        name:  "{{ ansible_user_id }}"
-        email: "{{ ansible_user_id }}@slac.stanford.edu"
+        name: Your Name
+        email: your-email@exemple.org
       color:
-         branch: auto
-         diff: auto
-         interactive: auto
-         status: auto
-         ui: auto
+        branch: auto
+        diff: auto
+        interactive: auto
+        status: auto
+        ui: auto
       core:
         editor: vim
         excludesfile: "~/.gitexcludesfile"
@@ -106,7 +107,7 @@
         br: branch
         sth: stash
 
-      git_ignore:
+    git_ignore:
       - "*.log"
       - ".vagrant"
       # OS generated files
@@ -121,7 +122,6 @@
       # ide
       - "~*"
       - ".idea/"
-            
 
     #Which SLAC Sites do you want locally?
     #Repo is the github repository

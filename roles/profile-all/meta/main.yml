@@ -14,4 +14,3 @@ dependencies:
   - slac.grail-computername
   - slac.grail-cli
   - slac.grail-osx-defaults
-  - kossi.gitconfig

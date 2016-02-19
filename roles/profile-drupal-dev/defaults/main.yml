@@ -12,11 +12,11 @@ git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
 #Repo is the github repository
 #Site-name will be directory, url and db name
 slac_sites:
-  - repo: https://github.com/SLAC-OCIO/slac-www.git
+  - repo: https://github.com/slac-ocio/slac-www
     site_name: slac-www
-  - repo: https://github.com/SLAC-OCIO/slac-features.git
+  - repo: https://github.com/slac-ocio/slac-features
     site_name: slac-features
-  - repo: https://github.com/SLAC-OCIO/slac-gtw.git
+  - repo: https://github.com/slac-ocio/slac-gtw
     site_name: slac-gtw
     
 #do not change after this line

@@ -22,12 +22,6 @@
         src: files/ssh_config
         dest: /etc/ssh_config  
 
-    - name: set git username
-      shell: "git config --global user.name {{git_user_name:}}"
-
-    - name: set git user email
-      shell: "git config --global user.email {{git_user_email}}"
- 
 
     - name: Add to user to sudoers without password
       become: yes
@@ -86,16 +80,58 @@
     #If you can edit, you should - but git has to have something
     git_user_name: "{{ ansible_user_id }}"
     git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
+    git_config:
+          user:
+            name:  "{{ ansible_user_id }}"
+            email: "{{ ansible_user_id }}@slac.stanford.edu"
+          color:
+            branch: auto
+            diff: auto
+            interactive: auto
+            status: auto
+            ui: auto
+          core:
+            editor: vim
+            excludesfile: "~/.gitexcludesfile"
+          push:
+            default: current
+          alias:
+            clo: clone
+            co: checkout
+            st: status
+            pur: pull --rebase
+            ci: commit
+            rc: rebase --continue
+            lg: log -M --decorate --graph --oneline
+            br: branch
+            sth: stash
+
+          git_ignore:
+          - "*.log"
+          - ".vagrant"
+          # OS generated files
+          - ".DS_Store"
+          - ".DS_Store?"
+          - "._*"
+          - ".Spotlight-V100"
+          - ".Trashes"
+          - "Icon?"
+          - "ehthumbs.db"
+          - "Thumbs.db"
+          # ide
+          - "~*"
+          - ".idea/"
+            
 
     #Which SLAC Sites do you want locally?
     #Repo is the github repository
     #Site-name will be directory, url and db name
     slac_sites:
-      - repo: https://github.com/SLAC-OCIO/slac-www.git
+      - repo: "https://github.com/slac-ocio/slac-www"
         site_name: slac-www
-      - repo: https://github.com/SLAC-OCIO/slac-features.git
+      - repo: "https://github.com/slac-ocio/slac-features"
         site_name: slac-features
-      - repo: https://github.com/SLAC-OCIO/slac-gtw.git
+      - repo: "https://github.com/slac-ocio/slac-gtw"
         site_name: slac-gtw
         
     #do not change after this line

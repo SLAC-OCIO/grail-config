@@ -48,6 +48,47 @@
     username: "{{ ansible_user_id }}"
     computername: "{{ ansible_user_id }}"
     git_user_name: "{{ username }}"
-    git_user_email: your@email.address
+    git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
 
-    
+    git_config:
+          user:
+            name:  "{{ ansible_user_id }}"
+            email: "{{ ansible_user_id }}@slac.stanford.edu"
+          color:
+            branch: auto
+            diff: auto
+            interactive: auto
+            status: auto
+            ui: auto
+          core:
+            editor: vim
+            excludesfile: "~/.gitexcludesfile"
+          push:
+            default: current
+          alias:
+            clo: clone
+            co: checkout
+            st: status
+            pur: pull --rebase
+            ci: commit
+            rc: rebase --continue
+            lg: log -M --decorate --graph --oneline
+            br: branch
+            sth: stash
+
+          git_ignore:
+          - "*.log"
+          - ".vagrant"
+          # OS generated files
+          - ".DS_Store"
+          - ".DS_Store?"
+          - "._*"
+          - ".Spotlight-V100"
+          - ".Trashes"
+          - "Icon?"
+          - "ehthumbs.db"
+          - "Thumbs.db"
+          # ide
+          - "~*"
+          - ".idea/"
+            

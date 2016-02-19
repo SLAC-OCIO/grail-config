@@ -12,6 +12,7 @@ galaxy_info:
     - system
 dependencies:
   - slac.grail-computername
+  - kossi.gitconfig
   - slac.grail-cli
   - slac.grail-homebrew
   - slac.grail-mysql

@@ -45,6 +45,7 @@
   homebrew_cask: name={{item}} state=present
   ignore_errors: yes
   with_items:
+    - atom
     - imageoptim
     - phpstorm
     - sequel-pro

@@ -37,3 +37,6 @@
   
 - src: https://github.com/slac-ocio/ansible-slac-sites-build.git
   name: slac.grail-sites-build
+
+- src: https://github.com/kosssi/ansible-role-gitconfig.git
+  name: kossi.gitconfig

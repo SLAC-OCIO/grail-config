@@ -39,15 +39,14 @@
         path: "~/bin"
         state: directory
         owner: "{{ ansible_user_id }}"
-        group: "staff"
         mode: 0755
+      run_once: true
 
     - name: Copy vhost script
       copy: 
         src: "~/.slac-mac/virtualhost.sh" 
         dest: "~/bin/virtualhost.sh" 
         owner: "{{ ansible_user_id }}"
-        group: "staff" 
         mode: 0655
 
     - name: copy vhost script conf
@@ -55,7 +54,6 @@
         src: "~/.slac-mac/virtualhost.sh.conf" 
         dest: "~/bin/virtualhost.sh.conf" 
         owner: "{{ ansible_user_id }}"
-        group: "staff" 
         mode: 0655
         
   roles:

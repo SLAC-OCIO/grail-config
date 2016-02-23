@@ -37,12 +37,13 @@
         path: "~/bin"
         state: directory
         owner: "{{ ansible_user_id }}"
-        group: "staff"
         mode: 0755
+      run_once: true
 
   roles:
     - profile-all
     - profile-developer
+    
   vars:
     username: "{{ ansible_user_id }}"
     computername: "{{ ansible_user_id }}"

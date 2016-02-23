@@ -34,12 +34,6 @@
       with_items:
         - { regexp: '^{{ansible_user_id}}', line: '{{ansible_user_id}} ALL=(ALL) NOPASSWD: ALL' }
 
-    - name: Ensure user bin directory exists
-      file:
-        path: "/Users/{{ ansible_user_id }}/bin"
-        owner: "{{ ansible_user_id }}"
-        state: directory
-      run_once: true
 
     - name: Copy vhost script
       copy: 

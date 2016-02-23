@@ -1,5 +1,11 @@
 ---
-
+- name: Ensure user bin directory exists
+  file:
+    path: "/Users/{{ ansible_user_id }}/bin"
+    owner: "{{ ansible_user_id }}"
+    state: directory
+  run_once: true
+  
 - name: tap caskroom/versions
   homebrew_tap: tap=caskroom/versions state=present
 

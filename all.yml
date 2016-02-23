@@ -32,14 +32,6 @@
       with_items:
         - { regexp: '^{{ansible_user_id}}', line: '{{ansible_user_id}} ALL=(ALL) NOPASSWD: ALL' }
 
-    - name: Create user bin directory
-      file:
-        path: "~/bin"
-        state: directory
-        owner: "{{ ansible_user_id }}"
-        mode: 0755
-      run_once: true
-
   roles:
     - profile-all
 

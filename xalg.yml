@@ -20,6 +20,7 @@
         - sketch
         - superduper
         - vmware-fusion
+
     - name: create ssh directory
       become: yes
       file:
@@ -30,17 +31,15 @@
         mode: 0777
       with_items:
         - /etc/ssh
-    - name: personal ssh config
+
+    - name: Improve ssh config
       become: yes
       copy:
         src: files/ssh_config
-        dest: /etc/ssh_config
-    - name: personal ssh config in another location
-      become: yes
-      copy:
-        src: files/ssh_config
-        dest: /etc/ssh/ssh_config
-    - name: add to sudoers without password
+        dest: /etc/ssh_config  
+
+
+    - name: Add to user to sudoers without password
       become: yes
       lineinfile: >
         dest=/etc/sudoers
@@ -49,45 +48,208 @@
         state=present
         create=true
       with_items:
-        - { regexp: '^xalg', line: 'xalg ALL=(ALL) NOPASSWD: ALL' }
+        - { regexp: '^{{ansible_user_id}}', line: '{{ansible_user_id}} ALL=(ALL) NOPASSWD: ALL' }
 
+    - name: Create user bin directory
+      file:
+        path: "~/bin"
+        state: directory
+        owner: "{{ ansible_user_id }}"
+        group: "staff"
+        mode: 0755
+
+    - name: Copy vhost script
+      copy: 
+        src: "~/.slac-mac/virtualhost.sh" 
+        dest: "~/bin/virtualhost.sh" 
+        owner: "{{ ansible_user_id }}"
+        group: "staff" 
+        mode: 0655
+
+    - name: copy vhost script conf
+      copy: 
+        src: "~/.slac-mac/virtualhost.sh.conf" 
+        dest: "~/bin/virtualhost.sh.conf" 
+        owner: "{{ ansible_user_id }}"
+        group: "staff" 
+        mode: 0655
+        
   roles:
     - profile-all
     - profile-developer
+    - profile-drupal-dev
 
   vars:
-    - computername: xalg
-    - git_user_name: xalgorithm
-    - git_user_email: x.algorithm@gmail.com
-    - php_version: 70
-    - sublime_packages:
-        - dest: "SideBarEnhancements"
-          repo: "https://github.com/titoBouzout/SideBarEnhancements"
-          version: "st3"
-        - dest: "GitGutter"
-          repo: "https://github.com/jisaacks/GitGutter.git"
-          version: "master"
-        - dest: "BracketHighlighter"
-          repo: "https://github.com/facelessuser/BracketHighlighter.git"
-          version: "master"
-        - dest: "Theme - Soda"
-          repo: "https://github.com/buymeasoda/soda-theme.git"
-          version: "master"
-        - dest: "Base16"
-          repo: "https://github.com/chriskempson/base16-textmate.git"
-          version: "master"
-        - dest: "ApplySyntax"
-          repo: "https://github.com/facelessuser/ApplySyntax.git"
-          version: "master"
-        - dest: "SublimeAllAutocomplete"
-          repo: "https://github.com/alienhard/SublimeAllAutocomplete"
-          version: "master"
-        - dest: "Ansible"
-          repo: "https://github.com/clifford-github/sublime-ansible.git"
-          version: "master"
-    - sublime_text_color_scheme: "Packages/Base16/base16-eighties.dark.tmTheme"
-    - sublime_text_theme: "Soda Dark 3.sublime-theme"
-    - osx_defaults:
+    node_versions:
+    - 0.12
+    - 0.8
+
+    computername: xalg
+    git_user_name: xalgorithm
+    git_user_email: x.algorithm@gmail.com
+    php_version: 70
+
+    default_node_version: 0.12
+    #If you can, change this...
+    mysql_root_password: "y0u$houldReallyChangeMe"
+
+    #at your discretion, but I find it works best here
+    website_path: "/var/sites"
+
+    #If you can edit, you should - but git has to have something
+    git_user_name: "{{ ansible_user_id }}"
+    git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
+
+    git_config:
+      user:
+        name: Your Name
+        email: your-email@exemple.org
+      color:
+        branch: auto
+        diff: auto
+        interactive: auto
+        status: auto
+        ui: auto
+      core:
+        editor: vim
+        excludesfile: "~/.gitexcludesfile"
+      push:
+        default: current
+      alias:
+        clo: clone
+        co: checkout
+        st: status
+        pur: pull --rebase
+        ci: commit
+        rc: rebase --continue
+        lg: log -M --decorate --graph --oneline
+        br: branch
+        sth: stash
+
+    git_ignore:
+      - "*.log"
+      - ".vagrant"
+      # OS generated files
+      - ".DS_Store"
+      - ".DS_Store?"
+      - "._*"
+      - ".Spotlight-V100"
+      - ".Trashes"
+      - "Icon?"
+      - "ehthumbs.db"
+      - "Thumbs.db"
+      # ide
+      - "~*"
+      - ".idea/"
+
+    #Which SLAC Sites do you want locally?
+    #Repo is the github repository
+    #Site-name will be directory, url and db name
+    slac_sites:
+      - repo: "https://github.com/slac-ocio/slac-www"
+        site_name: slac-www
+      - repo: "https://github.com/slac-ocio/slac-features"
+        site_name: slac-features
+      - repo: "https://github.com/slac-ocio/slac-gtw"
+        site_name: slac-gtw
+        
+    #do not change after this line
+    drush_install_path: /usr/local/share/drush
+    drush_version: "master"
+    drush_keep_updated: no
+    drush_force_update: no
+    composer_path: /usr/local/bin/composer
+    composer_home_owner: root
+    composer_home_group: wheel
+    #do not change before this line
+
+    #you may add packages at your discretion
+    sublime_packages:
+      - dest: "AlignTab"
+        repo: "https://github.com/randy3k/AlignTab.git"
+      - dest: "AnsibleSnippets"
+        repo: "https://github.com/seregatte/AnsibleSnippets.git"
+      - dest: "CSS Snippets."
+        repo: "https://github.com/joshnh/CSS-Snippets.git"
+      - dest: "CoffeeComplete Plus (Autocompletion)"
+        repo: "https://github.com/justinmahar/SublimeCSAutocompletePlus.git"
+      - dest: "Colorsublime"
+        repo:  "https://github.com/Colorsublime/Colorsublime-Plugin.git"
+      - dest: "Diffy"
+        repo:  "https://github.com/zsong/diffy.git"
+      - dest: "SublimeFileDiffs"
+        repo:  "https://github.com/colinta/SublimeFileDiffs.git"
+      - dest: "JavaScript Completions"
+        repo:  "https://github.com/pichillilorenzo/JavaScript-Completions.git"
+      - dest: "JavaScript Patterns"
+        repo:  "https://github.com/caiogondim/js-patterns-sublime-snippets.git"
+      - dest: "Jinja2"
+        repo:  "https://github.com/kudago/jinja2-tmbundle.git"
+      - dest: "Node Completions"
+        repo:  "https://github.com/james2doyle/sublime-node-snippets.git"
+      - dest: "Node Completions"
+        repo:  "https://github.com/james2doyle/sublime-node-snippets.git"
+      - dest: "Preferences Editor"
+        repo: "https://bitbucket.org/klorenz/sublimepreferenceseditor"
+      - dest: "Pretty JSON"
+        repo: "https://github.com/dzhibas/SublimePrettyJson.git"
+      - dest: "SublimeLinter-pyyaml"
+        repo: "https://github.com/SublimeLinter/SublimeLinter-pyyaml.git"
+      - dest: "Syntax Manager"
+        repo: "https://github.com/randy3k/SyntaxMgr.git"
+      - dest: "Theme - Freesia"
+        repo: "https://github.com/nilium/st-theme-freesia.git"
+      - dest: "Theme - itg.flat"
+        repo: "https://github.com/itsthatguy/theme-itg-flat.git"
+      - dest: "YAML Nav"
+        repo: "https://github.com/ddiachkov/sublime-yaml-nav"
+      - dest: "arduino-cli"
+        repo: "https://github.com/jacobrosenthal/arduino-cli.git"
+      - dest: "HTML-CSS-JS Prettify"
+        repo: "https://github.com/victorporof/Sublime-HTMLPrettify.git"
+      - dest: "JavaScript Refactor"
+        repo: "https://github.com/s-a/sublime-text-refactor.git"
+      - dest: "Meteor Autocomplete (TernJS)"
+        repo: "https://github.com/Slava/tern-meteor-sublime.git"
+      - dest: "Meteor Snippets"
+        repo: "https://github.com/mrtnbroder/meteor-snippets.git"
+      - dest: "Pretty YAML"
+        repo: "https://github.com/aukaost/SublimePrettyYAML.git"
+      - dest: "SublimeLinter"
+        repo: "https://github.com/SublimeLinter/SublimeLinter-for-ST2.git"
+      - dest: "bz2"
+        repo: "https://github.com/codexns/sublime-bz2.git"
+      - dest: "SideBarEnhancements"
+        repo: "https://github.com/titoBouzout/SideBarEnhancements"
+        version: "st3"
+      - dest: "GitGutter"
+        repo: "https://github.com/jisaacks/GitGutter.git"
+        version: "master"
+      - dest: "BracketHighlighter"
+        repo: "https://github.com/facelessuser/BracketHighlighter.git"
+        version: "master"
+      - dest: "Base16"
+        repo: "https://github.com/chriskempson/base16-textmate.git"
+        version: "master"
+      - dest: "Theme - Soda"
+        repo: "https://github.com/buymeasoda/soda-theme.git"
+        version: "master"
+      - dest: "ApplySyntax"
+        repo: "https://github.com/facelessuser/ApplySyntax.git"
+        version: "master"
+      - dest: "SublimeAllAutocomplete"
+        repo: "https://github.com/alienhard/SublimeAllAutocomplete"
+        version: "master"
+      - dest: "Ansible"
+        repo: "https://github.com/clifford-github/sublime-ansible.git"
+        version: "master"
+
+    #Change your default color scheme here    
+    sublime_text_color_scheme: "Packages/Base16/base16-eighties.dark.tmTheme"
+    sublime_text_theme: "Soda Dark 3.sublime-theme"
+
+    #These are optional but very useful
+    osx_defaults:
       - domain: 'com.apple.dock'
         key: 'autohide'
         type: boolean
@@ -100,10 +262,6 @@
         key: 'show-process-indicators'
         type: boolean
         value: true
-      - domain: 'com.apple.dock'
-        key: 'orientation'
-        type: string
-        value: left
       - domain: 'NSGlobalDomain'
         key: 'NSTableViewDefaultSizeMode'
         type: integer
@@ -166,25 +324,5 @@
         value: true
       - domain: 'com.apple.print.PrintingPrefs'
         key: 'Quit When Finished'
-        type: boolean
-        value: true
-      - domain: 'com.apple.Safari'
-        key: 'IncludeInternalDebugMenu'
-        type: boolean
-        value: true
-      - domain: 'com.apple.Safari'
-        key: 'IncludeDevelopMenu'
-        type: boolean
-        value: true
-      - domain: 'com.apple.Safari'
-        key: 'WebKitDeveloperExtrasEnabledPreferenceKey'
-        type: boolean
-        value: true
-      - domain: 'com.apple.Safari'
-        key: 'com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled'
-        type: boolean
-        value: true
-      - domain: 'NSGlobalDomain'
-        key: 'WebKitDeveloperExtras'
         type: boolean
         value: true

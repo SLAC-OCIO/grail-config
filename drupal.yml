@@ -51,7 +51,6 @@
         
   roles:
     - profile-all
-    - profile-developer
     - profile-drupal-dev
 
   vars:

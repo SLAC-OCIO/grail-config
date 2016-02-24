@@ -13,9 +13,6 @@
 
 - src: https://github.com/slac-ocio/ansible-role-mysql.git
   name: slac.grail-mysql
-
-- src: https://github.com/slac-ocio/ansible-role-postgresql.git
-  name: slac.grail-postgresql
   
 - src: https://github.com/slac-ocio/ansible-role-php.git
   name: slac.grail-php

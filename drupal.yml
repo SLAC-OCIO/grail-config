@@ -119,10 +119,13 @@
     slac_sites:
       - repo: "https://github.com/slac-ocio/slac-www"
         site_name: slac-www
+        path: /var/sites/slac-www
       - repo: "https://github.com/slac-ocio/slac-features"
         site_name: slac-features
+        path: /var/sites/slac-features
       - repo: "https://github.com/slac-ocio/slac-gtw"
         site_name: slac-gtw
+        path: /var/sites/slac-gtw
         
     #do not change after this line
     drush_install_path: /usr/local/share/drush

@@ -50,14 +50,6 @@
       with_items:
         - { regexp: '^{{ansible_user_id}}', line: '{{ansible_user_id}} ALL=(ALL) NOPASSWD: ALL' }
 
-    - name: Create user bin directory
-      file:
-        path: "~/bin"
-        state: directory
-        owner: "{{ ansible_user_id }}"
-        group: "staff"
-        mode: 0755
-
     - name: Copy vhost script
       copy: 
         src: "~/.slac-mac/virtualhost.sh" 

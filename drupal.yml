@@ -71,8 +71,8 @@
 
     git_config:
       user:
-        name: {{ ansible_user_id }}
-        email: {{ ansible_user_id }}@slac.stanford.edu
+        name: "{{ ansible_user_id }}""
+        email: "{{ ansible_user_id }}@slac.stanford.edu"
       color:
         branch: auto
         diff: auto

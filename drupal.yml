@@ -4,7 +4,7 @@
   connection: local
   
   tasks:
-
+  
     - name: create ssh directory
       become: yes
       file:
@@ -22,7 +22,6 @@
         src: files/ssh_config
         dest: /etc/ssh_config  
 
-
     - name: Add to user to sudoers without password
       become: yes
       lineinfile: >
@@ -33,7 +32,6 @@
         create=true
       with_items:
         - { regexp: '^{{ansible_user_id}}', line: '{{ansible_user_id}} ALL=(ALL) NOPASSWD: ALL' }
-
 
     - name: Copy vhost script
       copy: 
@@ -73,8 +71,8 @@
 
     git_config:
       user:
-        name: Your Name
-        email: your-email@exemple.org
+        name: {{ ansible_user_id }}
+        email: {{ ansible_user_id }}@slac.stanford.edu
       color:
         branch: auto
         diff: auto
@@ -115,16 +113,19 @@
 
     #Which SLAC Sites do you want locally?
     #Repo is the github repository
-    #Site-name will be directory, url and db name
+    #Site-name will be directory, url and db name, path
     slac_sites:
-      - repo: "https://github.com/slac-ocio/slac-www"
+      www: 
         site_name: slac-www
+        repo: "https://github.com/slac-ocio/slac-www"
         path: /var/sites/slac-www
-      - repo: "https://github.com/slac-ocio/slac-features"
+      features: 
         site_name: slac-features
+        repo: "https://github.com/slac-ocio/slac-features"
         path: /var/sites/slac-features
-      - repo: "https://github.com/slac-ocio/slac-gtw"
+      gtw:
         site_name: slac-gtw
+        repo: "https://github.com/slac-ocio/slac-gtw"
         path: /var/sites/slac-gtw
         
     #do not change after this line

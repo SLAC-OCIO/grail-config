@@ -27,7 +27,7 @@
       lineinfile: >
         dest=/etc/sudoers
         regexp='{{ item.regexp }}'
-        line='{{ item.line }}''
+        line='{{ item.line }}'
         state=present
         create=true
       with_items:

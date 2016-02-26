@@ -8,7 +8,7 @@
     - name: create ssh directory
       become: yes
       file:
-        path: "{{item}}"
+        path: '{{item}}'
         state: directory
         owner: root
         group: wheel
@@ -26,8 +26,8 @@
       become: yes
       lineinfile: >
         dest=/etc/sudoers
-        regexp="{{ item.regexp }}"
-        line="{{ item.line }}"
+        regexp='{{ item.regexp }}'
+        line='{{ item.line }}''
         state=present
         create=true
       with_items:
@@ -37,14 +37,14 @@
       copy: 
         src: "~/.slac-mac/virtualhost.sh" 
         dest: "~/bin/virtualhost.sh" 
-        owner: "{{ ansible_user_id }}"
+        owner: '{{ ansible_user_id }}'
         mode: 0655
 
     - name: copy vhost script conf
       copy: 
         src: "~/.slac-mac/virtualhost.sh.conf" 
         dest: "~/bin/virtualhost.sh.conf" 
-        owner: "{{ ansible_user_id }}"
+        owner: '{{ ansible_user_id }}'
         mode: 0655
         
   roles:
@@ -56,7 +56,7 @@
     - 0.12
     - 0.8
 
-    computername: "{{ ansible_user_id }}"
+    computername: '{{ ansible_user_id }}'
     
     default_node_version: 0.12
     #If you can, change this...
@@ -66,13 +66,13 @@
     website_path: "/var/sites"
 
     #If you can edit, you should - but git has to have something
-    git_user_name: "{{ ansible_user_id }}"
-    git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
+    git_user_name: '{{ ansible_user_id }}'
+    git_user_email: '{{ ansible_user_id }}@slac.stanford.edu'
 
     git_config:
       user:
-        name: "{{ ansible_user_id }}"
-        email: "{{ ansible_user_id }}@slac.stanford.edu"
+        name: '{{ ansible_user_id }}'
+        email: '{{ ansible_user_id }}@slac.stanford.edu'
       color:
         branch: auto
         diff: auto
@@ -136,7 +136,7 @@
     composer_path: /usr/local/bin/composer
     composer_home_owner: root
     composer_home_group: wheel
-    php_version: 55
+    php_version: 70
     #do not change before this line
 
     #you may add packages at your discretion

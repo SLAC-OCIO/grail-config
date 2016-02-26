@@ -7,7 +7,7 @@
     - name: create ssh directory
       become: yes
       file:
-        path: "{{item}}"
+        path: '{{item}}'
         state: directory
         owner: root
         group: wheel
@@ -25,8 +25,8 @@
       become: yes
       lineinfile: >
         dest=/etc/sudoers
-        regexp="{{ item.regexp }}"
-        line="{{ item.line }}"
+        regexp='{{ item.regexp }}'
+        line='{{ item.line }}'
         state=present
         create=true
       with_items:
@@ -37,7 +37,7 @@
 
   vars:
     
-    username: "{{ ansible_user_id }}"
-    computername: "{{ ansible_user_id }}"
-    git_user_name: "{{ username }}"
-    git_user_email: "{{ ansible_user_id }}@slac.stanford.edu"
+    username: '{{ ansible_user_id }}'
+    computername: '{{ ansible_user_id }}'
+    git_user_name: '{{ username }}'
+    git_user_email: '{{ ansible_user_id }}@slac.stanford.edu'

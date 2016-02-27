@@ -16,7 +16,6 @@ dependencies:
   - slac.grail-cli
   - slac.grail-homebrew
   - slac.grail-mysql
-  - slac.grail-php
   - slac.grail-sublimetext
   - slac.grail-node
   - slac.grail-vim

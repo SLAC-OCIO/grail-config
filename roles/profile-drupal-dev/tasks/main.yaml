@@ -6,10 +6,6 @@
     state: directory
   run_once: true
   
-#Install the lib to run the DB add
-- name: pip mysqllib
-  pip: name='mysqldb' state='present'  
-  
 - name: tap caskroom/versions
   homebrew_tap: tap=caskroom/versions state=present
 

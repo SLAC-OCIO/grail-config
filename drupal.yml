@@ -47,10 +47,6 @@
         owner: '{{ ansible_user_id }}'
         mode: 0655
 
-      #Install the lib to run the DB add
-    - name: pip mysqllib
-      pip: name='mysqldb' state='present'
-
         
   roles:
     - profile-all
@@ -64,12 +60,8 @@
     computername: '{{ ansible_user_id }}'
     
     default_node_version: 0.12
-    #If you can, change this...
-    mysql_root_password: "y0u$houldReallyChangeMe"
-
     #at your discretion, but I find it works best here
     website_path: "/var/sites"
-
     #If you can edit, you should - but git has to have something
     git_user_name: '{{ ansible_user_id }}'
     git_user_email: '{{ ansible_user_id }}@slac.stanford.edu'

@@ -46,6 +46,13 @@
         dest: "~/bin/virtualhost.sh.conf" 
         owner: '{{ ansible_user_id }}'
         mode: 0655
+
+      #Install the lib to run the DB add
+    - name: pip mysqllib
+      pip: 
+        name:mysqldb
+        state: present
+
         
   roles:
     - profile-all

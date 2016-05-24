@@ -44,7 +44,6 @@
     - openssl
     - pv
     - wrk
-    - brew-cask
     - mongodb
     - sl
     
